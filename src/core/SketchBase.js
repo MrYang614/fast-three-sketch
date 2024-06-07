@@ -72,6 +72,10 @@ export class SketchBase {
     set cache(value) {
         THREE.Cache.enabled = !!value
     }
+    /** @param {boolean} value  是否开启缓存 */
+    get cache() {
+        return THREE.Cache.enabled
+    }
 
     /** 获取 canvas 对象 */
     get canvas() {

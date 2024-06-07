@@ -29,5 +29,8 @@
     "simple-kd-tree": "^1.0.1",
     "three": "^0.165.0"
   },
-  "types": "./src/index.d.ts"
+  "types": "./src/index.d.ts",
+  "devDependencies": {
+    "@types/three": "^0.165.0"
+  }
 }
