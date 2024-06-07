@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Stats from "stats";
+import Stats from "three/examples/jsm/libs/stats.module.js";
 import { Updatable, Timer, MemoryManager } from './lib';
 import { download } from './utils';
 
