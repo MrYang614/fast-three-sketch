@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import Stats from "stats";
-import { Updatable, Timer } from './lib';
+import { Updatable, Timer, MemoryManager } from './lib';
+import { download } from './utils';
 
 const userAgent = navigator.userAgent;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
@@ -234,6 +235,25 @@ export class SketchBase {
 
         this.render()
 
+    }
+
+    /**
+     * 清除三维对象内存
+     * @param {THREE.Object3D|THREE.Object3D[]} object 
+     * @param {boolean} removeFromParent 
+     */
+    dispose(object, removeFromParent = true) {
+        MemoryManager.dispose(object, removeFromParent)
+    }
+
+    async saveScreenshot(name = `screenshot.png`) {
+        this.render();
+        const blob = await new Promise((resolve) => {
+            this.renderer.domElement.toBlob(resolve, "image/png");
+        });
+        if (blob) {
+            download(blob, name);
+        }
     }
 
 }
