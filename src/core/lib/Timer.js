@@ -35,6 +35,8 @@ export class Timer extends Updatable {
      */
     constructor(sketch) {
 
+        super()
+
         this.order = 0
 
         this.sketchBase = sketch

@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Updatable, Timer, MemoryManager } from './lib';
 import { download } from './utils';
+
 
 const userAgent = navigator.userAgent;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
@@ -76,6 +78,13 @@ export class SketchBase {
         return this.#_renderer.domElement
     }
 
+    /**@type {OrbitControls} 控制器 */
+    #_controls
+
+    get controls() {
+        return this.#_controls
+    }
+
     /**@type {Map<string,THREE.Camera>} */
     #_cameraMap
 
@@ -97,6 +106,7 @@ export class SketchBase {
         this.#_cameraMap = new Map();
         this.#_sceneMap = new Map();
 
+        this.#_updateQueue = []
 
         this.#_camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.01, 1000);
         this.#_camera.position.set(10, 10, 10);
@@ -120,9 +130,10 @@ export class SketchBase {
         document.body.appendChild(this.#_renderer.domElement);
 
 
-        this.timer = new Timer(this)
+        this.#_controls = new OrbitControls(this.#_baseCamera, this.#_renderer.domElement)
+        this.addUpdatable(this.#_controls)
 
-        this.#_updateQueue = []
+        this.timer = new Timer(this)
 
         window.addEventListener("resize", () => {
             const { innerWidth, innerHeight } = window;
@@ -137,7 +148,7 @@ export class SketchBase {
      * 添加模块
      * @param {Updatable} updatable 
      */
-    addUpdatable(updatable) {
+    addUpdatable = (updatable) => {
 
         if (typeof updatable.update !== "function") {
             return
