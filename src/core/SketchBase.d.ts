@@ -20,26 +20,30 @@ declare class SketchBase {
 
     controls: OrbitControls;
 
-    constructor ( antialias: boolean, logarithmicDepthBuffer: boolean );
+    customRender: Function | undefined;
+
+    constructor ( antialias?: boolean, logarithmicDepthBuffer?: boolean );
 
     addUpdatable ( updatable: Updatable ): void;
 
     removeUpdatable ( updatable: Updatable ): void;
 
-    initAxesHelper ( size: number ): void;
+    initAxesHelper ( size?: number ): void;
 
-    initGridHelper ( size: number, division: number, color1: THREE.ColorRepresentation, color2: THREE.ColorRepresentation ): void;
+    initGridHelper ( size?: number, division?: number, color1?: THREE.ColorRepresentation, color2?: THREE.ColorRepresentation ): void;
 
     initStats (): void;
 
-    render ( customRender: Function ): void;
+    setCustomRender ( customRender: Function | undefined ): void;
+
+    render (): void;
 
     update (): void;
 
     animate (): void;
 
-    dispose ( object: THREE.Object3D | THREE.Object3D[], removeFromParent: boolean ): void;
+    dispose ( object: THREE.Object3D | THREE.Object3D[], removeFromParent?: boolean ): void;
 
-    async saveScreenshot ( name: string ): Promise<void>;
+    async saveScreenshot ( name?: string ): Promise<void>;
 
 }

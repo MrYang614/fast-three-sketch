@@ -100,6 +100,9 @@ export class SketchBase {
     /**@type {Updatable[]} */
     #_updateQueue
 
+    /**@type {Function} */
+    customRender = undefined
+
     constructor(antialias = true, logarithmicDepthBuffer = true) {
 
         if (!isDesktop) {
@@ -218,15 +221,19 @@ export class SketchBase {
         document.body.appendChild(stats.dom);
     }
 
-    /**
-     * 渲染函数
-     * @param { Function } customRender 自定义渲染函数 
-     */
-    render = (customRender) => {
-        if (typeof customRender === "function") {
-            customRender()
-        } else {
+    render = () => {
+        if (this.customRender === undefined) {
             this.#_renderer.render(this.#_scene, this.#_camera)
+        } else {
+            customRender()
+        }
+    }
+
+    setCustomRender = (customRender) => {
+        if (typeof customRender === "function") {
+            this.customRender = customRender
+        } else {
+            this.customRender = undefined
         }
     }
 
