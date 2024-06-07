@@ -1,37 +1,46 @@
 # threeSketch
 
-#### 介绍
-three.js
-
-#### 软件架构
-软件架构说明
+#### Description
+旨在快速生成更易维护，易读性高的 three.js 项目。
 
 
-#### 安装教程
+#### Installation
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  npm i fast-three-sketch
 
-#### 使用说明
+#### use
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+```
+import { SketchBase } from "fast-three-sketch";
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+const sketch = new SketchBase( true, true );
 
 
-#### 特技
+sketch.initAxesHelper();
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+// render one frame
+// sketch.render();
+
+// render on animationFrame
+sketch.animate();
+
+// customRender for postprocessing
+// sketch.customRender = Composer.render()
+
+// add components to the renderQueue 
+// sketch.addUpdatable(updatableModule)
+
+// remove components from the renderQueue
+// sketch.removeUpdatable(updatableModule)
+
+// saveScreenshot
+// sketch.saveScreenshot("screenShot.png");
+
+```
+
+
+#### Gitee Feature
+
+1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
+2.  Gitee blog [blog.gitee.com](https://gitee.com/yjsdszz/three-sketch)
+3.  JueJin blog [juejin.com](https://juejin.cn/user/1834441468557735)
