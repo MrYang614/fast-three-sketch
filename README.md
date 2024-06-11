@@ -8,7 +8,7 @@
 
 1.  npm i fast-three-sketch
 
-#### use
+##### init
 
 ```
 import { SketchBase } from "fast-three-sketch";
@@ -36,6 +36,21 @@ sketch.animate();
 // saveScreenshot
 // sketch.saveScreenshot("screenShot.png");
 
+```
+
+##### raycaster 
+```
+const raycasterControls = sketch.raycast( "click", group, intersections => {
+    console.log( intersections);
+} );
+
+sketch.raycast( "dblclick", group, intersections => {
+    console.log( intersections );
+} );
+
+setTimeout( () => {
+    raycasterControls.clear();
+}, 3000 );
 ```
 
 
