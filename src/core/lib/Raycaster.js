@@ -49,7 +49,7 @@ export class Raycaster {
 
         if (!this.hasEvent(type)) {
 
-            this.#_registerEvent(object, type)
+            this.#_registerEvent(type, object)
 
         }
 

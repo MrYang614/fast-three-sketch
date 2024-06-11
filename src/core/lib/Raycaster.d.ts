@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 
 export type EventType = "click" | "mousedown" | "mouseup" | "mousemove" | "dblclick" | "pointerdown" | "pointermove" | "pointerup";
-export type CallbackType = ( intersection: THREE.Intersection ) => void;
+export type CallbackType = ( intersection: THREE.Intersection[] ) => void;
 export type ObjectType = THREE.Object3D | THREE.Object3D[];
 type EventQueueMap = Map<ObjectType, CallbackType[]>;
 type EventQueueMapType = Map<EventType, EventQueueMap>;
