@@ -10,9 +10,17 @@ const mouse = new THREE.Vector2()
 
 export class Raycaster {
 
-    callbackMap
+    #_callbackMap = new Map()
 
     #_listenerMap = new Map()
+
+    #_stateMap = new Map()
+
+    #_intersections = []
+
+    get intersections() {
+        return this.#_intersections
+    }
 
     /**
      * @param {THREE.Camera} camera 
@@ -24,12 +32,6 @@ export class Raycaster {
 
         this.camera = camera;
         this.element = element;
-
-        this.callbackMap = new Map()
-
-        this.stateMap = new Map()
-
-        this.intersections = []
 
     }
 
@@ -53,7 +55,7 @@ export class Raycaster {
 
         }
 
-        const eventMap = this.callbackMap.get(type)
+        const eventMap = this.#_callbackMap.get(type)
 
         const taskQueue = eventMap.get(object)
 
@@ -63,14 +65,14 @@ export class Raycaster {
         }
 
         return {
-            clear: () => this.clear(object, type, callback),
+            clear: () => this.#_clear(type, object, callback),
             intersections: this.intersections
         }
 
     }
 
     hasEvent(type) {
-        return this.callbackMap.has(type)
+        return this.#_callbackMap.has(type)
     }
 
     #_registerEvent(type, object) {
@@ -79,7 +81,7 @@ export class Raycaster {
 
         taskMap.set(object, [])
 
-        this.callbackMap.set(type, taskMap)
+        this.#_callbackMap.set(type, taskMap)
 
         const listener = (event) => {
 
@@ -87,9 +89,9 @@ export class Raycaster {
 
                 taskQueue.forEach(task => {
 
-                    const intersections = this.getIntersections(event, object, type)
+                    this.#_getIntersections(event, object, type)
 
-                    task(intersections)
+                    task(this.intersections)
                 })
 
             })
@@ -108,10 +110,10 @@ export class Raycaster {
 
     }
 
-    clear(type, object, callback) {
+    #_clear(type, object, callback) {
 
         /**@type {Map<any,map>} */
-        const eventMap = this.callbackMap.get(type)
+        const eventMap = this.#_callbackMap.get(type)
 
         if (!eventMap) return
 
@@ -137,6 +139,8 @@ export class Raycaster {
 
         if (eventMap.size === 0) {
 
+            this.#_callbackMap.delete(type)
+
             const removeEventListener = this.#_listenerMap.get(type)
 
             removeEventListener()
@@ -148,20 +152,20 @@ export class Raycaster {
     }
 
     setState(type, value) {
-        this.stateMap.set(type, value)
+        this.#_stateMap.set(type, value)
     }
 
     getState(type) {
 
-        if (this.stateMap.has(type)) {
-            return this.stateMap.get(type)
+        if (this.#_stateMap.has(type)) {
+            return this.#_stateMap.get(type)
         }
 
         return true
 
     }
 
-    getIntersections(event, object, type) {
+    #_getIntersections(event, object, type) {
 
         const state = this.getState(type)
 

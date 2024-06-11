@@ -1,6 +1,6 @@
 import type * as THREE from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import type { Updatable, CallbackType, EventType, ObjectType } from './lib';
+import type { Updatable, CallbackType, EventType, ObjectType, ResultType } from './lib';
 
 declare class SketchBase {
 
@@ -53,7 +53,7 @@ declare class SketchBase {
     initStats (): void;
 
     /** 优化的射线拾取功能 */
-    raycast ( type: EventType, object: ObjectType, callback: CallbackType ): void;
+    raycast ( type: EventType, object: ObjectType, callback: CallbackType ): ResultType;
 
     /** 设置自定义渲染函数，这个操作会取代基础渲染，用于后处理。 */
     setCustomRender ( customRender: Function | undefined ): void;

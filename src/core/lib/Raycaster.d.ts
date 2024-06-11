@@ -7,7 +7,7 @@ export type ObjectType = THREE.Object3D | THREE.Object3D[];
 type EventQueueMap = Map<ObjectType, CallbackType[]>;
 type EventQueueMapType = Map<EventType, EventQueueMap>;
 
-type ResultType = {
+export type ResultType = {
     clear: () => void;
     intersections: THREE.Intersection[];
 };

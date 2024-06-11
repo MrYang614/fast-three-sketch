@@ -229,13 +229,15 @@ export class SketchBase {
 
         this.raycaster = new Raycaster(this.#_camera, this.canvas);
 
-        this.raycaster.raycast(type, object, callback)
+        const controls = this.raycaster.raycast(type, object, callback)
 
         this.raycast = (type, object, callback) => {
 
-            this.raycaster.raycast(type, object, callback)
+            return this.raycaster.raycast(type, object, callback)
 
         }
+
+        return controls
     }
 
     render = () => {
