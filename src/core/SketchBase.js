@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { Updatable, Timer, MemoryManager } from './lib';
+import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
 import { download } from './utils';
 
 
@@ -88,6 +88,9 @@ export class SketchBase {
     get controls() {
         return this.#_controls
     }
+
+    /**@type {Raycaster|undefined} 射线拾取器 */
+    raycaster
 
     /**@type {Map<string,THREE.Camera>} */
     #_cameraMap
@@ -219,6 +222,20 @@ export class SketchBase {
     initStats() {
         const stats = new Stats();
         document.body.appendChild(stats.dom);
+    }
+
+    /** 射线拾取 */
+    raycast(type, object, callback) {
+
+        this.raycaster = new Raycaster(this.#_camera, this.canvas);
+
+        this.raycaster.raycast(type, object, callback)
+
+        this.raycast = (type, object, callback) => {
+
+            this.raycaster.raycast(type, object, callback)
+
+        }
     }
 
     render = () => {
