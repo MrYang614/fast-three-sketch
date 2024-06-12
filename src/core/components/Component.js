@@ -8,6 +8,7 @@ export class Component extends Updatable {
      * @param {SketchBase} sketch 
      */
     constructor(sketch) {
+        super()
         this.sketchBase = sketch;
     }
 

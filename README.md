@@ -55,9 +55,17 @@ setTimeout( () => {
 
 ##### EventEmitter
 ```
-import {Component} from "./"
+import {Component} from "fast-three-sketch"
 const componentA = new Component()
 const componentB = new Component()
+
+componentA.on( "love", ( event ) => {
+    console.log( "  love ", event );
+} );
+
+setTimeout( () => {
+    componentB.emit( "love", "i love" );
+}, 3000 );
 ```
 
 
