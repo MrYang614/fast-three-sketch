@@ -197,6 +197,22 @@ export class SketchBase {
         }
     }
 
+    add() {
+        this.scene.add(...arguments)
+    }
+
+    remove(object, needToDispose = false) {
+
+        this.scene.remove(object)
+
+        if (needToDispose === false) {
+            this.scene.remove(object)
+        } else {
+            MemoryManager.dispose(object, true)
+        }
+
+    }
+
     /**
      * 添加坐标系辅助线
      * @param {number} size Size of the lines representing the axes. Default 1

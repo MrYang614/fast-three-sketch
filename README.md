@@ -25,7 +25,7 @@ sketch.initAxesHelper();
 sketch.animate();
 
 // customRender for postprocessing
-// sketch.customRender = Composer.render()
+// sketch.customRender = Composer.render
 
 // add components to the renderQueue 
 // sketch.addUpdatable(updatableModule)

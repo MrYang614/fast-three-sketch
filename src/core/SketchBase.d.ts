@@ -43,6 +43,12 @@ declare class SketchBase {
     /** 移除功能模块 */
     removeUpdatable ( updatable: Updatable ): void;
 
+    /** 添加三维对象到当前场景 */
+    add ( ...object: THREE.Object3D[] ): void;
+
+    /** 从当前场景移除三维对象 */
+    remove ( object: THREE.Object3D, needToDispose: boolean ): void;
+
     /** 初始化坐标系 */
     initAxesHelper ( size?: number ): void;
 
