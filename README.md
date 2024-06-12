@@ -53,6 +53,13 @@ setTimeout( () => {
 }, 3000 );
 ```
 
+##### EventEmitter
+```
+import {Component} from "./"
+const componentA = new Component()
+const componentB = new Component()
+```
+
 
 #### Gitee Feature
 
