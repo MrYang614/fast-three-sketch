@@ -4,7 +4,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
 import { download } from './utils';
 
-
 const userAgent = navigator.userAgent;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 const isTablet = /iPad|Android/i.test(userAgent);
