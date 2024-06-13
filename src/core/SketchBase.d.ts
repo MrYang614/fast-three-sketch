@@ -1,6 +1,7 @@
 import type * as THREE from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import type { Updatable, CallbackType, EventType, ObjectType, ResultType } from './lib';
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 declare class SketchBase {
 
@@ -27,6 +28,8 @@ declare class SketchBase {
 
     /** 控制器 */
     controls: OrbitControls;
+
+    gui: GUI;
 
     /** 自定义渲染函数 */
     customRender: () => void | undefined;
@@ -57,6 +60,9 @@ declare class SketchBase {
 
     /** 初始化性能监视器 */
     initStats (): void;
+
+    /** 初始化图形用户界面 */
+    initGUI (): void;
 
     /** 优化的射线拾取功能 */
     raycast ( type: EventType, object: ObjectType, callback: CallbackType ): ResultType;

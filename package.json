@@ -1,6 +1,6 @@
 {
   "name": "fast-three-sketch",
-  "version": "1.1.19",
+  "version": "1.1.22",
   "description": "轻量three.js二次封装，快速搭建三维场景",
   "type": "module",
   "main": "./src/index.js",

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js"
+import { OrbitControls } from 'three-stdlib';
 import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
 import { download } from './utils';
 
@@ -237,6 +238,11 @@ export class SketchBase {
     initStats() {
         const stats = new Stats();
         document.body.appendChild(stats.dom);
+    }
+
+    initGUI() {
+        this.gui = new GUI()
+        this.gui.open()
     }
 
     /** 射线拾取 */
