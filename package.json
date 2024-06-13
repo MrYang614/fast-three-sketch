@@ -1,6 +1,6 @@
 {
   "name": "fast-three-sketch",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "description": "轻量three.js二次封装，快速搭建三维场景",
   "type": "module",
   "main": "./src/index.js",
@@ -27,7 +27,8 @@
   "license": "ISC",
   "dependencies": {
     "three": "^0.165.0",
-    "three-mesh-bvh": "^0.7.5"
+    "three-mesh-bvh": "^0.7.5",
+    "three-stdlib": "^2.30.3"
   },
   "types": "./src/index.d.ts",
   "devDependencies": {
