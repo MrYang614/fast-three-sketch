@@ -31,11 +31,10 @@ declare class SketchBase {
 
     gui: GUI;
 
-    /** 单帧时间间隔 */
-    delta: number;
-
-    /** 经过的时间 */
-    elapsedTime: number;
+    /** 获取单帧时间间隔 */
+    getDelta (): number;
+    /** 获取经过的时间 */
+    getElapsedTime (): number;
 
     /** 单帧时间间隔，用于着色器 */
     uDelta: { value: number; };

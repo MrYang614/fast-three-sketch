@@ -91,11 +91,11 @@ export class SketchBase {
 
     #timer
 
-    get delta() {
+    getDelta() {
         return this.#timer.delta
     }
 
-    get elapsedTime() {
+    getElapsedTime() {
         return this.#timer.elapsedTime
     }
 
