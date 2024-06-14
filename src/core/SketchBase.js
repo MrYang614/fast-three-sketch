@@ -128,7 +128,7 @@ export class SketchBase {
     /**@type {Function} */
     customRender = undefined
 
-    constructor(antialias = true, logarithmicDepthBuffer = true) {
+    constructor(antialias = false, logarithmicDepthBuffer = false) {
 
         if (!isDesktop) {
             alert('当前项目仅支持PC端');
