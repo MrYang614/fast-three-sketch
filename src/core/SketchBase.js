@@ -89,6 +89,28 @@ export class SketchBase {
         return this.#_controls
     }
 
+    #timer
+
+    get delta() {
+        return this.#timer.delta
+    }
+
+    get elapsedTime() {
+        return this.#timer.elapsedTime
+    }
+
+    get uDelta() {
+        return this.#timer.uDelta
+    }
+
+    get uElapsedTime() {
+        return this.#timer.uElapsedTime
+    }
+
+    get uTime() {
+        return this.#timer.uDelta
+    }
+
     /**@type {Raycaster|undefined} 射线拾取器 */
     raycaster
 
@@ -143,7 +165,7 @@ export class SketchBase {
         this.#_controls = new OrbitControls(this.#_baseCamera, this.#_renderer.domElement)
         this.addUpdatable(this.#_controls)
 
-        this.timer = new Timer(this)
+        this.#timer = new Timer(this)
 
         window.addEventListener("resize", () => {
             const { innerWidth, innerHeight } = window;
@@ -299,6 +321,8 @@ export class SketchBase {
 
     }
 
+
+
     /**
      * 清除三维对象内存
      * @param {THREE.Object3D|THREE.Object3D[]} object 
@@ -319,3 +343,5 @@ export class SketchBase {
     }
 
 }
+
+

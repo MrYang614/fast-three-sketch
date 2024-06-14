@@ -31,6 +31,21 @@ declare class SketchBase {
 
     gui: GUI;
 
+    /** 单帧时间间隔 */
+    delta: number;
+
+    /** 经过的时间 */
+    elapsedTime: number;
+
+    /** 单帧时间间隔，用于着色器 */
+    uDelta: { value: number; };
+
+    /** 单帧时间间隔，用于着色器 */
+    uTime: { value: number; };
+
+    /** 经过的时间，用于着色器 */
+    uElapsedTime: { value: number; };
+
     /** 自定义渲染函数 */
     customRender: () => void | undefined;
 
