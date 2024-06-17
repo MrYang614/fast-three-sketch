@@ -8,6 +8,45 @@ THREE.Raycaster.prototype.firstHitOnly = true
 
 const mouse = new THREE.Vector2()
 
+/*
+ *  批量的射线检测优化：
+ *  1. 针对同类型事件，不会重复监听。
+ *  2. 针对同类型事件，相同检测对象，不会重复射线检测。
+ *  3. 更好的事件控制，可针对事件类型设置活跃状态。
+ *  4. 更好的事件清除控制，射线返回 Clear 方法。
+ *
+ *  callbackMap : {
+ *                      
+ *                  click : {
+ * 
+ *                           object1 : [ callback1,callback2,callback3 ....... ],
+ * 
+ *                           object2 : [ callback1,callback2,callback3 ....... ],
+ *                              
+ *                           ....................
+ *                          },
+ *                  mousemove : {
+ * 
+ *                           object1 : [ callback1,callback2,callback3 ....... ],
+ * 
+ *                           object2 : [ callback1,callback2,callback3 ....... ],
+ *                              
+ *                           ....................
+ *                          },
+ *                  dblclick : {
+ * 
+ *                           object1 : [ callback1,callback2,callback3 ....... ],
+ * 
+ *                           object2 : [ callback1,callback2,callback3 ....... ],
+ *                              
+ *                           ....................
+ *                          },
+ * 
+ *                  ......
+ * 
+ *                 }
+ */
+
 export class Raycaster {
 
     #_callbackMap = new Map()
@@ -58,11 +97,11 @@ export class Raycaster {
         const eventMap = this.#_callbackMap.get(type)
 
         let taskQueue
-        if (!eventMap.has(object)) {
+        if (eventMap.has(object)) {
+            taskQueue = eventMap.get(object)
+        } else {
             taskQueue = []
             eventMap.set(object, taskQueue)
-        } else {
-            taskQueue = eventMap.get(object)
         }
 
         if (taskQueue.indexOf(callback) === -1) {
