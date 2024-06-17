@@ -51,6 +51,29 @@ sketch.raycast( "dblclick", group, intersections => {
 setTimeout( () => {
     raycasterControls.clear();
 }, 3000 );
+
+---------
+
+        function test ( intersection ) {
+
+            if ( intersection.length ) {
+                console.log( intersection );
+            }
+        }
+
+        const controls = this.raycast( "dblclick", obj3d1, test );
+
+        const controls2 = this.raycast( "dblclick", obj3d2, test );
+
+        setTimeout( () => {
+            controls.clear();
+
+            setTimeout( () => {
+                controls2.clear();
+
+            }, 3000 );
+        }, 3000 );
+
 ```
 
 ##### EventEmitter
