@@ -57,10 +57,15 @@ export class Raycaster {
 
         const eventMap = this.#_callbackMap.get(type)
 
-        const taskQueue = eventMap.get(object)
+        let taskQueue
+        if (!eventMap.has(object)) {
+            taskQueue = []
+            eventMap.set(object, taskQueue)
+        } else {
+            taskQueue = eventMap.get(object)
+        }
 
         if (taskQueue.indexOf(callback) === -1) {
-
             taskQueue.push(callback)
         }
 
