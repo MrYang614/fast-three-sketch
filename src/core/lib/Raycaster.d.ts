@@ -26,30 +26,23 @@ export class Raycaster {
 
     constructor ( camera: THREE.Camera, element: HTMLElement );
 
-
+    /** 重新设置 */
     set ( camera: THREE.Camera, element: HTMLElement ): void;
 
+    /**
+     * @param type 射线事件触发类型
+     * @param object 射线检测对象，可以是数组
+     * @param callback 射线检测回调
+     */
     raycast ( type: EventType, object: ObjectType, callback: CallbackType ): ResultType;
 
-    exist () {
+    /** 返回是否包含此类型事件 */
+    hasEvent ( type: EventType ): boolean;
 
-    }
+    /** 设置某个事件的活跃状态 */
+    setState ( type: EventType, value: boolean ): void;
 
-    clear () {
-
-    }
-
-    setState () {
-
-    }
-
-    getState () {
-
-    }
-
-    getIntersections () {
-
-    }
-
+    /** 获取某个事件的活跃状态 */
+    getState ( type: EventType ): void;
 
 }
