@@ -7,7 +7,6 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast
 THREE.Raycaster.prototype.firstHitOnly = true
 
 const mouse = new THREE.Vector2()
-
 /*
  *  批量的射线检测优化：
  *  1. 针对同类型事件，不会重复监听。
@@ -46,7 +45,6 @@ const mouse = new THREE.Vector2()
  * 
  *                 }
  */
-
 export class Raycaster {
 
     #_callbackMap = new Map()
@@ -90,18 +88,18 @@ export class Raycaster {
 
         if (!this.hasEvent(type)) {
 
-            this.#_registerEvent(type, object)
+            this.#_registerEvent(type)
 
         }
 
         const eventMap = this.#_callbackMap.get(type)
 
         let taskQueue
-        if (eventMap.has(object)) {
-            taskQueue = eventMap.get(object)
-        } else {
+        if (!eventMap.has(object)) {
             taskQueue = []
             eventMap.set(object, taskQueue)
+        } else {
+            taskQueue = eventMap.get(object)
         }
 
         if (taskQueue.indexOf(callback) === -1) {
@@ -119,23 +117,22 @@ export class Raycaster {
         return this.#_callbackMap.has(type)
     }
 
-    #_registerEvent(type, object) {
+    #_registerEvent(type) {
 
-        const taskMap = new Map()
+        const eventMap = new Map()
 
-        taskMap.set(object, [])
-
-        this.#_callbackMap.set(type, taskMap)
+        this.#_callbackMap.set(type, eventMap)
 
         const listener = (event) => {
 
-            taskMap.forEach(taskQueue => {
+            eventMap.forEach((taskQueue, object) => {
 
                 taskQueue.forEach(task => {
 
                     this.#_getIntersections(event, object, type)
 
                     task(this.intersections)
+
                 })
 
             })
