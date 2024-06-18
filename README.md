@@ -37,6 +37,15 @@ sketch.animate();
 // sketch.saveScreenshot("screenShot.png");
 
 ```
+##### resize 
+```
+function resize ( w, h ) {
+    console.log( w, h );
+}
+
+this.addResizeFn( resize );
+
+```
 
 ##### raycaster 
 ```
