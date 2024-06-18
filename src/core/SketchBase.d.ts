@@ -60,6 +60,12 @@ declare class SketchBase {
     /** 移除功能模块 */
     removeUpdatable ( updatable: Updatable ): void;
 
+    /** 添加窗口自适应方法,窗口发生改变时，会自动执行该方法 */
+    addResizeFn ( resizeFunction: ( innerWidth: number, innerHeight: number ) => void ): void;
+
+    /** 移除窗口自适应方法 */
+    removeResizeFn ( resizeFunction: ( innerWidth: number, innerHeight: number ) => void ): void;
+
     /** 添加三维对象到当前场景 */
     add ( ...object: THREE.Object3D[] ): void;
 

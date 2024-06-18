@@ -125,6 +125,9 @@ export class SketchBase {
     /**@type {Updatable[]} */
     #_updateQueue
 
+    /**@type {Array< (innerWidth:number,innerHeight:number)=>void >} */
+    #_resizeQueue
+
     /**@type {Function} */
     customRender = undefined
 
@@ -139,6 +142,7 @@ export class SketchBase {
         this.#_sceneMap = new Map();
 
         this.#_updateQueue = []
+        this.#_resizeQueue = []
 
         this.#_camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.01, 1000);
         this.#_camera.position.set(10, 10, 10);
@@ -167,11 +171,21 @@ export class SketchBase {
 
         this.#timer = new Timer(this)
 
+        const resizeQueue = this.#_resizeQueue
+
         window.addEventListener("resize", () => {
             const { innerWidth, innerHeight } = window;
             this.#_camera.aspect = innerWidth / innerHeight;
             this.#_camera.updateProjectionMatrix();
             this.#_renderer.setSize(innerWidth, innerHeight);
+
+            for (let i = 0; i < resizeQueue.length; i++) {
+
+                const cb = resizeQueue[i]
+
+                cb(innerWidth, innerHeight)
+
+            }
         });
 
     }
@@ -214,6 +228,46 @@ export class SketchBase {
         for (let i = 0, il = updateQueue.length; i < il; i++) {
             if (updatable === updateQueue[i]) {
                 updateQueue.splice(i, 1)
+                return
+            }
+        }
+    }
+
+    /**
+     * 添加窗口自适应方法
+     * @param {(innerWidth:number,innerHeight:number)=>void} resizeFunction 
+     * @returns 
+     */
+    addResizeFn(resizeFunction) {
+        if (typeof resizeFunction !== "function") {
+            return
+        }
+        const resizeQueue = this.#_resizeQueue
+
+        for (let i = 0, il = resizeQueue.length; i < il; i++) {
+            if (resizeFunction === resizeQueue[i]) {
+                return
+            }
+        }
+
+        resizeQueue.push(resizeFunction);
+
+    }
+    /**
+     * 移除窗口自适应方法
+     * @param {(innerWidth:number,innerHeight:number)=>void} resizeFunction 
+     * @returns 
+     */
+    removeResizeFn(resizeFunction) {
+        if (typeof resizeFunction !== "function") {
+            return
+        }
+
+        const resizeQueue = this.#_resizeQueue
+
+        for (let i = 0, il = resizeQueue.length; i < il; i++) {
+            if (resizeFunction === resizeQueue[i]) {
+                resizeQueue.splice(i, 1)
                 return
             }
         }
