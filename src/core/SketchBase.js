@@ -161,7 +161,7 @@ export class SketchBase {
         this.#_renderer.toneMappingExposure = 1.0;
         this.#_renderer.shadowMap.enabled = true;
         this.#_renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.#_renderer.domElement.id = "canvas";
+        this.#_renderer.domElement.id = "sketch_three_canvas";
         this.#_renderer.domElement.oncontextmenu = e => false;
         document.body.appendChild(this.#_renderer.domElement);
 

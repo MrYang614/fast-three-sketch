@@ -1,6 +1,6 @@
 import type * as THREE from 'three';
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import type { Updatable, CallbackType, EventType, ObjectType, ResultType } from './lib';
+import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 declare class SketchBase {
@@ -85,7 +85,7 @@ declare class SketchBase {
     initGUI (): void;
 
     /** 优化的射线拾取功能 */
-    raycast ( type: EventType, object: ObjectType, callback: CallbackType ): ResultType;
+    raycast ( type: RaycastEventType, object: RaycastObjectType, callback: RaycastCallbackType ): RaycastResultType;
 
     /** 设置自定义渲染函数，这个操作会取代基础渲染，用于后处理。 */
     setCustomRender ( customRender: Function | undefined ): void;

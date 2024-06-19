@@ -1,13 +1,13 @@
 import * as THREE from "three";
 
 
-export type EventType = "click" | "mousedown" | "mouseup" | "mousemove" | "dblclick" | "pointerdown" | "pointermove" | "pointerup";
-export type CallbackType = ( intersection: THREE.Intersection[] ) => void;
-export type ObjectType = THREE.Object3D | THREE.Object3D[];
-type EventQueueMap = Map<ObjectType, CallbackType[]>;
-type EventQueueMapType = Map<EventType, EventQueueMap>;
+export type RaycastEventType = "click" | "mousedown" | "mouseup" | "mousemove" | "dblclick" | "pointerdown" | "pointermove" | "pointerup";
+export type RaycastCallbackType = ( intersection: THREE.Intersection[] ) => void;
+export type RaycastObjectType = THREE.Object3D | THREE.Object3D[];
+type EventQueueMap = Map<RaycastObjectType, RaycastCallbackType[]>;
+type EventQueueMapType = Map<RaycastEventType, EventQueueMap>;
 
-export type ResultType = {
+export type RaycastResultType = {
     clear: () => void;
     intersections: THREE.Intersection[];
 };
@@ -34,15 +34,15 @@ export class Raycaster {
      * @param object 射线检测对象，可以是数组
      * @param callback 射线检测回调
      */
-    raycast ( type: EventType, object: ObjectType, callback: CallbackType ): ResultType;
+    raycast ( type: RaycastEventType, object: RaycastObjectType, callback: RaycastCallbackType ): RaycastResultType;
 
     /** 返回是否包含此类型事件 */
-    hasEvent ( type: EventType ): boolean;
+    hasEvent ( type: RaycastEventType ): boolean;
 
     /** 设置某个事件的活跃状态 */
-    setState ( type: EventType, value: boolean ): void;
+    setState ( type: RaycastEventType, value: boolean ): void;
 
     /** 获取某个事件的活跃状态 */
-    getState ( type: EventType ): void;
+    getState ( type: RaycastEventType ): void;
 
 }
