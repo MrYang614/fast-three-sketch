@@ -206,8 +206,8 @@ export class DepthRain extends THREE.Mesh {
 
     #_createRain() {
 
-        const box = this.box;
-        const parameters = this.defaultParameters;
+        const box = this.#_box;
+        const parameters = this.#_defaultParameters;
 
         const material = this.material = new THREE.MeshBasicMaterial({
             transparent: true,
