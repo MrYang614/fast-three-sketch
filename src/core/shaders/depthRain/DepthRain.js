@@ -319,7 +319,7 @@ export class DepthRain extends THREE.Mesh {
 
     #_createDepth(width = 256, height = 256) {
 
-        const box = this.box;
+        const box = this.#_box;
         const _target = this.#_target = new THREE.WebGLRenderTarget(width, height);
 
         _target.texture.format = THREE.RGBFormat;
