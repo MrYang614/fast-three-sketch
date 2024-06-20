@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import type * as THREE from "three";
 import type { SketchBase } from "fast-three-sketch";
 
 type DepthRainParameters = {
@@ -7,7 +7,7 @@ type DepthRainParameters = {
     size?: number;
 };
 
-export class DepthRain {
+export class DepthRain extends THREE.Mesh {
 
     /**
      * @param box 范围
