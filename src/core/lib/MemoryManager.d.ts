@@ -4,7 +4,7 @@ declare class MemoryManager {
 
     resources: Set<any>;
 
-    constructor (): void;
+    constructor ();
 
     /**
      * 收集内存引用

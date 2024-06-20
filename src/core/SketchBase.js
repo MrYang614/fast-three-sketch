@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js"
-import { OrbitControls } from 'three-stdlib';
+import { CSS2DRenderer, CSS3DRenderer, CSS2DObject, CSS3DSprite, CSS3DObject, OrbitControls } from 'three-stdlib';
 import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
 import { download } from './utils';
 
@@ -308,6 +308,54 @@ export class SketchBase {
     initGridHelper(size, division, color1, color2) {
         const helper = new THREE.GridHelper(size, division, color1, color2);
         this.#_scene.add(helper);
+    }
+
+    /**
+     * 初始化 css2dRenderer 渲染器
+     */
+    initCSS2DRenderer() {
+        const css2dRenderer = new CSS2DRenderer()
+        css2dRenderer.domElement.id = "css2dRenderer"
+        css2dRenderer.setSize(window.innerWidth, window.innerHeight)
+        document.body.appendChild(css2dRenderer.domElement)
+        this.css2dRenderer = css2dRenderer
+    }
+
+    /**
+     * 初始化 css3dRenderer 渲染器
+     */
+    initCSS3DRenderer() {
+        const css3dRenderer = new CSS3DRenderer()
+        css3dRenderer.domElement.id = "css3dRenderer"
+        css3dRenderer.setSize(window.innerWidth, window.innerHeight)
+        document.body.appendChild(css3dRenderer.domElement)
+        this.css3dRenderer = css3dRenderer
+    }
+
+    /**
+     * 
+     * @param {HTMLElement} htmlElement 
+     * @param {"2d"|"3d"|"3dSprite"} type 
+     * @param {THREE.Vector3Like} position 
+     */
+    renderHTML(htmlElement, type) {
+
+        let object = null
+
+        if (type === "2d") {
+            object = new CSS2DObject(htmlElement)
+        } else if (type === "3d") {
+            object = new CSS3DObject(htmlElement)
+        } else if (type === "3dSprite") {
+            object = new CSS3DSprite(htmlElement)
+        } else {
+            throw new Error("try to render htmlElement to wrong type")
+        }
+
+        this.#_scene.add(object)
+
+        return object
+
     }
 
     /** 添加性能监视器 */

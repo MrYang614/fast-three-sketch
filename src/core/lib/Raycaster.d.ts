@@ -22,7 +22,7 @@ export class Raycaster {
 
     callbackMap: EventQueueMapType;
 
-    intersections = null;
+    intersections: THREE.Intersection[];
 
     constructor ( camera: THREE.Camera, element: HTMLElement );
 
