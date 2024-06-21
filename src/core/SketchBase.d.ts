@@ -46,7 +46,7 @@ export declare class SketchBase {
     uElapsedTime: { value: number; };
 
     /** 自定义渲染函数 */
-    customRender: () => void | undefined;
+    customRender: ( ( sketch: SketchBase ) => void ) | undefined;
 
     /**
      * @param parameters WEBGL 渲染器参数
@@ -87,7 +87,7 @@ export declare class SketchBase {
     raycast ( type: RaycastEventType, object: RaycastObjectType, callback: RaycastCallbackType ): RaycastResultType;
 
     /** 设置自定义渲染函数，这个操作会取代基础渲染，用于后处理。 */
-    setCustomRender ( customRender: Function | undefined ): void;
+    setCustomRender ( customRender: ( sketch: SketchBase ) => void ): void;
 
     /** 渲染一帧 */
     render (): void;

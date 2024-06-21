@@ -393,7 +393,7 @@ export class SketchBase {
         if (this.customRender === undefined) {
             this.#_renderer.render(this.#_scene, this.#_camera)
         } else {
-            this.customRender()
+            this.customRender(this)
         }
     }
 
