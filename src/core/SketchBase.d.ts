@@ -3,7 +3,7 @@ import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
-declare class SketchBase {
+export declare class SketchBase {
 
     /** WEBGL渲染器 */
     renderer: THREE.WebGLRenderer;
@@ -51,7 +51,7 @@ declare class SketchBase {
     /**
      * @param parameters WEBGL 渲染器参数
      */
-    constructor ( parameters: THREE.WebGLRendererParameters | undefined );
+    constructor ( parameters?: THREE.WebGLRendererParameters );
 
     /** 添加功能模块 */
     addUpdatable ( updatable: Updatable ): void;
