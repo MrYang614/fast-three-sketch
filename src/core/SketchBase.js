@@ -131,7 +131,11 @@ export class SketchBase {
     /**@type {Function} */
     customRender = undefined
 
-    constructor(antialias = false, logarithmicDepthBuffer = false) {
+    /**
+     * @param {THREE.WebGLRendererParameters | undefined} parameters 
+     * @returns 
+     */
+    constructor(parameters) {
 
         if (!isDesktop) {
             alert('当前项目仅支持PC端');
@@ -154,7 +158,7 @@ export class SketchBase {
         this.sceneHelpers = new THREE.Scene()
 
         // WebGL渲染器
-        this.#_renderer = new THREE.WebGLRenderer({ antialias, logarithmicDepthBuffer });
+        this.#_renderer = new THREE.WebGLRenderer(parameters);
         this.#_renderer.setPixelRatio(window.devicePixelRatio);
         this.#_renderer.setSize(window.innerWidth, window.innerHeight);
         this.#_renderer.toneMapping = THREE.ACESFilmicToneMapping;

@@ -49,10 +49,9 @@ declare class SketchBase {
     customRender: () => void | undefined;
 
     /**
-     * @param antialias 抗锯齿开启
-     * @param logarithmicDepthBuffer 对数缓冲区开启
+     * @param parameters WEBGL 渲染器参数
      */
-    constructor ( antialias?: boolean, logarithmicDepthBuffer?: boolean );
+    constructor ( parameters: THREE.WebGLRendererParameters | undefined );
 
     /** 添加功能模块 */
     addUpdatable ( updatable: Updatable ): void;
