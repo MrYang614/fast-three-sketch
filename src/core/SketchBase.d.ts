@@ -102,6 +102,6 @@ export declare class SketchBase {
     dispose ( object: THREE.Object3D | THREE.Object3D[], removeFromParent?: boolean ): void;
 
     /** 截图 */
-    async saveScreenshot ( name?: string ): Promise<void>;
+    saveScreenshot ( name?: string ): Promise<void>;
 
 }
