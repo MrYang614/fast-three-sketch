@@ -407,13 +407,20 @@ export class SketchBase {
     }
 
     render = () => {
+
+        const renderer = this.#_renderer
         if (this.customRender === undefined) {
-            this.#_renderer.render(this.#_scene, this.#_camera)
+            renderer.render(this.#_scene, this.#_camera)
         } else {
             this.customRender(this)
         }
 
-        this.#_renderer.render(this.#_sceneHelpers, this.#_camera)
+        // render helpers
+        renderer.autoClear = false
+        if (this.#_sceneHelpers.visible === true) {
+            renderer.render(this.#_sceneHelpers, this.#_camera)
+        }
+        renderer.autoClear = true
 
     }
 
