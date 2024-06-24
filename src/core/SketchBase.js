@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js"
-import { CSS2DRenderer, CSS3DRenderer, CSS2DObject, CSS3DSprite, CSS3DObject, OrbitControls } from 'three-stdlib';
+import { CSS2DRenderer, CSS3DRenderer, CSS2DObject, CSS3DSprite, CSS3DObject, OrbitControls, TransformControls } from 'three-stdlib';
 import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
 import { download } from './utils';
 
@@ -42,6 +42,12 @@ export class SketchBase {
     /**@type {THREE.PerspectiveCamera} 初始透视相机 */
     get baseCamera() {
         return this.#_baseCamera
+    }
+
+    #_sceneHelpers
+
+    get sceneHelpers() {
+        return this.#_sceneHelpers
     }
 
     /**@type {THREE.Scene} 场景 */
@@ -155,7 +161,7 @@ export class SketchBase {
         this.#_scene = new THREE.Scene();
         this.#_baseScene = this.#_scene
 
-        this.sceneHelpers = new THREE.Scene()
+        this.#_sceneHelpers = new THREE.Scene()
 
         // WebGL渲染器
         this.#_renderer = new THREE.WebGLRenderer(parameters);
@@ -217,6 +223,7 @@ export class SketchBase {
         updateQueue.sort((a, b) => a.order - b.order)
 
     }
+
     /**
      * 删除模块
      * @param {Updatable} updatable 
@@ -257,6 +264,7 @@ export class SketchBase {
         resizeQueue.push(resizeFunction);
 
     }
+
     /**
      * 移除窗口自适应方法
      * @param {(innerWidth:number,innerHeight:number)=>void} resizeFunction 
@@ -299,7 +307,7 @@ export class SketchBase {
      */
     initAxesHelper(size) {
         const helper = new THREE.AxesHelper(size);
-        this.#_scene.add(helper);
+        this.#_sceneHelpers.add(helper);
     }
 
     /**
@@ -311,7 +319,12 @@ export class SketchBase {
      */
     initGridHelper(size, division, color1, color2) {
         const helper = new THREE.GridHelper(size, division, color1, color2);
-        this.#_scene.add(helper);
+        this.#_sceneHelpers.add(helper);
+    }
+
+    initTransformControls() {
+        this.transformControls = new TransformControls(this.#_camera, this.canvas)
+        this.#_sceneHelpers.add(this.transformControls)
     }
 
     /**
@@ -334,6 +347,10 @@ export class SketchBase {
         css3dRenderer.setSize(window.innerWidth, window.innerHeight)
         document.body.appendChild(css3dRenderer.domElement)
         this.css3dRenderer = css3dRenderer
+    }
+
+    setHelpersVisible(visible) {
+        this.sceneHelpers.visible = !!visible
     }
 
     /**
@@ -395,6 +412,9 @@ export class SketchBase {
         } else {
             this.customRender(this)
         }
+
+        this.#_renderer.render(this.#_sceneHelpers, this.#_camera)
+
     }
 
     setCustomRender = (customRender) => {

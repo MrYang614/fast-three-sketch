@@ -1,7 +1,7 @@
 import type * as THREE from 'three';
-import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
+import type { TransformControls, OrbitControls } from 'three-stdlib';
 
 export declare class SketchBase {
 
@@ -17,6 +17,9 @@ export declare class SketchBase {
     /** 当前场景 */
     scene: THREE.Scene;
 
+    /** helpers scene */
+    sceneHelpers: THREE.Scene;
+
     /** 基础场景，引用始终保持不变 */
     baseScene: THREE.Scene;
 
@@ -28,6 +31,9 @@ export declare class SketchBase {
 
     /** 控制器 */
     controls: OrbitControls;
+
+    /** 变换控制器 */
+    transformControls: TransformControls;
 
     gui: GUI;
 
@@ -82,6 +88,8 @@ export declare class SketchBase {
 
     /** 初始化图形用户界面 */
     initGUI (): void;
+
+    setHelpersVisible ( visible: boolean ): void;
 
     /** 优化的射线拾取功能 */
     raycast ( type: RaycastEventType, object: RaycastObjectType, callback: RaycastCallbackType ): RaycastResultType;
