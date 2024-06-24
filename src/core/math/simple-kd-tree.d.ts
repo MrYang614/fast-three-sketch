@@ -1,14 +1,12 @@
-declare module "simple-kd-tree" {
-    export class SimpleKDTree<T> {
+export class SimpleKDTree<T> {
 
-        nearest: ( point: T, maxDistance: number ) => [ T, distance ][];
+    nearest: ( point: T, maxDistance: number ) => [ T, distance ][];
 
-        remove: ( point: T ) => void;
+    remove: ( point: T ) => void;
 
-        insert: ( point: T ) => void;
+    insert: ( point: T ) => void;
 
-        balanceFactor: () => void;
+    balanceFactor: () => void;
 
-        constructor ( points: T[], metric: ( a: T, b: T ) => number, dimensions: ( keyof T )[] );
-    }
+    constructor ( points: T[], metric: ( a: T, b: T ) => number, dimensions: ( keyof T )[] );
 }
