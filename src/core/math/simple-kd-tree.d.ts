@@ -25,5 +25,5 @@ export class SimpleKDTree<T = THREE.Vector2Like | THREE.Vector3Like | THREE.Vect
      * @param metric 计算函数
      * @param dimensions 计算分量
      */
-    constructor ( points: T[], metric: ( a: T, b: T ) => number, dimensions: [ keyof T ] );
+    constructor ( points: T[], metric: ( a: T, b: T ) => number, dimensions: ( keyof T )[] );
 }
