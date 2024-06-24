@@ -89,6 +89,9 @@ export declare class SketchBase {
     /** 初始化图形用户界面 */
     initGUI (): void;
 
+    /** 初始化变换控制器 */
+    initTransformControls (): void;
+
     setHelpersVisible ( visible: boolean ): void;
 
     /** 优化的射线拾取功能 */
