@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js"
-import { CSS2DRenderer, CSS3DRenderer, CSS2DObject, CSS3DSprite, CSS3DObject, OrbitControls, TransformControls } from 'three-stdlib';
-import { Updatable, Timer, MemoryManager, Raycaster } from './lib';
+import { CSS2DRenderer, CSS3DRenderer, CSS2DObject, CSS3DSprite, CSS3DObject, OrbitControls } from 'three-stdlib';
+import { Updatable, Timer, MemoryManager, Raycaster, TransformControls } from './lib';
 import { download } from './utils';
 
 const userAgent = navigator.userAgent;

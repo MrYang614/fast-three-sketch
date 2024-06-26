@@ -1,7 +1,8 @@
 import type * as THREE from 'three';
-import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType } from './lib';
+import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType, TransformControls } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
-import type { TransformControls, OrbitControls } from 'three-stdlib';
+import type { OrbitControls } from 'three-stdlib';
+
 
 export declare class SketchBase {
 
