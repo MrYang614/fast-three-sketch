@@ -4,38 +4,39 @@ type TransformControlsMode = "translate" | "rotate" | "scale";
 
 export interface TransformControlsEventMap extends Object3DEventMap {
     change: {};
-    mouseDown: { mode: TransformControlsMode };
-    mouseUp: { mode: TransformControlsMode };
+    mouseDown: { mode: TransformControlsMode; };
+    mouseUp: { mode: TransformControlsMode; };
     objectChange: {};
-    "camera-changed": { value: unknown };
-    "object-changed": { value: unknown };
-    "enabled-changed": { value: unknown };
-    "axis-changed": { value: unknown };
-    "mode-changed": { value: unknown };
-    "translationSnap-changed": { value: unknown };
-    "rotationSnap-changed": { value: unknown };
-    "scaleSnap-changed": { value: unknown };
-    "space-changed": { value: unknown };
-    "size-changed": { value: unknown };
-    "dragging-changed": { value: unknown };
-    "showX-changed": { value: unknown };
-    "showY-changed": { value: unknown };
-    "showZ-changed": { value: unknown };
-    "worldPosition-changed": { value: unknown };
-    "worldPositionStart-changed": { value: unknown };
-    "worldQuaternion-changed": { value: unknown };
-    "worldQuaternionStart-changed": { value: unknown };
-    "cameraPosition-changed": { value: unknown };
-    "cameraQuaternion-changed": { value: unknown };
-    "pointStart-changed": { value: unknown };
-    "pointEnd-changed": { value: unknown };
-    "rotationAxis-changed": { value: unknown };
-    "rotationAngle-changed": { value: unknown };
-    "eye-changed": { value: unknown };
+    "camera-changed": { value: unknown; };
+    "object-changed": { value: unknown; };
+    "enabled-changed": { value: unknown; };
+    "axis-changed": { value: unknown; };
+    "mode-changed": { value: unknown; };
+    "translationSnap-changed": { value: unknown; };
+    "rotationSnap-changed": { value: unknown; };
+    "scaleSnap-changed": { value: unknown; };
+    "space-changed": { value: unknown; };
+    "size-changed": { value: unknown; };
+    "dragging-changed": { value: unknown; };
+    "showX-changed": { value: unknown; };
+    "showY-changed": { value: unknown; };
+    "showZ-changed": { value: unknown; };
+    "worldPosition-changed": { value: unknown; };
+    "worldPositionStart-changed": { value: unknown; };
+    "worldQuaternion-changed": { value: unknown; };
+    "worldQuaternionStart-changed": { value: unknown; };
+    "cameraPosition-changed": { value: unknown; };
+    "cameraQuaternion-changed": { value: unknown; };
+    "pointStart-changed": { value: unknown; };
+    "pointEnd-changed": { value: unknown; };
+    "rotationAxis-changed": { value: unknown; };
+    "rotationAngle-changed": { value: unknown; };
+    "eye-changed": { value: unknown; };
+    "translate": { value: unknown; };
 }
 
 export class TransformControls extends Object3D<TransformControlsEventMap> {
-    constructor(object: Camera, domElement?: HTMLElement);
+    constructor ( object: Camera, domElement?: HTMLElement );
 
     domElement: HTMLElement;
 
@@ -62,23 +63,23 @@ export class TransformControls extends Object3D<TransformControlsEventMap> {
         RIGHT?: MOUSE | null | undefined;
     };
 
-    pointerHover(pointer: PointerEvent | null): void;
-    pointerDown(pointer: PointerEvent | null): void;
-    pointerMove(pointer: PointerEvent | null): void;
-    pointerUp(pointer: PointerEvent | null): void;
+    pointerHover ( pointer: PointerEvent | null ): void;
+    pointerDown ( pointer: PointerEvent | null ): void;
+    pointerMove ( pointer: PointerEvent | null ): void;
+    pointerUp ( pointer: PointerEvent | null ): void;
 
-    attach(object: Object3D): this;
-    detach(): this;
-    getMode(): TransformControlsMode;
-    getRaycaster(): Raycaster;
-    setMode(mode: TransformControlsMode): void;
-    setTranslationSnap(translationSnap: number | null): void;
-    setRotationSnap(rotationSnap: number | null): void;
-    setScaleSnap(scaleSnap: number | null): void;
-    setSize(size: number): void;
-    setSpace(space: "world" | "local"): void;
-    reset(): void;
-    dispose(): void;
+    attach ( object: Object3D ): this;
+    detach (): this;
+    getMode (): TransformControlsMode;
+    getRaycaster (): Raycaster;
+    setMode ( mode: TransformControlsMode ): void;
+    setTranslationSnap ( translationSnap: number | null ): void;
+    setRotationSnap ( rotationSnap: number | null ): void;
+    setScaleSnap ( scaleSnap: number | null ): void;
+    setSize ( size: number ): void;
+    setSpace ( space: "world" | "local" ): void;
+    reset (): void;
+    dispose (): void;
 }
 
 export class TransformControlsGizmo extends Object3D {
@@ -101,14 +102,14 @@ export class TransformControlsGizmo extends Object3D {
         scale: Object3D;
     };
 
-    constructor();
+    constructor ();
 }
 
 export class TransformControlsPlane extends Mesh {
     type: "TransformControlsPlane";
     isTransformControlsPlane: true;
 
-    constructor();
+    constructor ();
 
     mode: TransformControlsMode;
 
