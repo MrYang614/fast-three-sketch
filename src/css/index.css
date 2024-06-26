@@ -8,8 +8,6 @@
   #css3dRenderer,
   #css2dRenderer{
     position: absolute;
+    pointer-events: none;
     top: 0;
-    height: 0 !important;
-    overflow: initial !important;
-    z-index: 9;
   }
