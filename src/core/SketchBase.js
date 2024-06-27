@@ -141,7 +141,7 @@ export class SketchBase {
      * @param {THREE.WebGLRendererParameters | undefined} parameters 
      * @returns 
      */
-    constructor(parameters) {
+    constructor(targetElement = document.body, parameters) {
 
         if (!isDesktop) {
             alert('当前项目仅支持PC端');
@@ -154,7 +154,10 @@ export class SketchBase {
         this.#_updateQueue = []
         this.#_resizeQueue = []
 
-        this.#_camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.01, 1000);
+        const width = targetElement.clientWidth || window.innerWidth
+        const height = targetElement.clientHeight || window.innerHeight
+
+        this.#_camera = new THREE.PerspectiveCamera(55, width / height, 0.01, 1000);
         this.#_camera.position.set(10, 10, 10);
         this.#_baseCamera = this.#_camera
 
@@ -166,17 +169,16 @@ export class SketchBase {
         // WebGL渲染器
         this.#_renderer = new THREE.WebGLRenderer(parameters);
         this.#_renderer.setPixelRatio(window.devicePixelRatio);
-        this.#_renderer.setSize(window.innerWidth, window.innerHeight);
+        this.#_renderer.setSize(width, height);
         this.#_renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.#_renderer.toneMappingExposure = 1.0;
         this.#_renderer.shadowMap.enabled = true;
         this.#_renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.#_renderer.domElement.id = "sketch_three_canvas";
         this.#_renderer.domElement.oncontextmenu = e => false;
-        document.body.appendChild(this.#_renderer.domElement);
+        targetElement.appendChild(this.#_renderer.domElement);
 
-
-        this.#_controls = new OrbitControls(this.#_baseCamera, this.#_renderer.domElement)
+        this.#_controls = new OrbitControls(this.#_baseCamera, targetElement)
         this.addUpdatable(this.#_controls)
 
         this.#timer = new Timer(this)
@@ -184,16 +186,22 @@ export class SketchBase {
         const resizeQueue = this.#_resizeQueue
 
         window.addEventListener("resize", () => {
-            const { innerWidth, innerHeight } = window;
-            this.#_camera.aspect = innerWidth / innerHeight;
+
+            const width = targetElement.clientWidth;
+            const height = targetElement.clientHeight;
+
+            const pixelRatio = Math.min(window.devicePixelRatio, 2);
+
+            this.#_camera.aspect = width / height;
             this.#_camera.updateProjectionMatrix();
-            this.#_renderer.setSize(innerWidth, innerHeight);
+            this.#_renderer.setSize(width, height);
+            this.#_renderer.setPixelRatio(pixelRatio);
 
             for (let i = 0; i < resizeQueue.length; i++) {
 
                 const cb = resizeQueue[i]
 
-                cb(innerWidth, innerHeight)
+                cb(width, height)
 
             }
         });
@@ -334,7 +342,7 @@ export class SketchBase {
         const css2dRenderer = new CSS2DRenderer()
         css2dRenderer.domElement.id = "css2dRenderer"
         css2dRenderer.setSize(window.innerWidth, window.innerHeight)
-        document.body.appendChild(css2dRenderer.domElement)
+        targetElement.appendChild(css2dRenderer.domElement)
         this.css2dRenderer = css2dRenderer
     }
 
@@ -345,7 +353,7 @@ export class SketchBase {
         const css3dRenderer = new CSS3DRenderer()
         css3dRenderer.domElement.id = "css3dRenderer"
         css3dRenderer.setSize(window.innerWidth, window.innerHeight)
-        document.body.appendChild(css3dRenderer.domElement)
+        targetElement.appendChild(css3dRenderer.domElement)
         this.css3dRenderer = css3dRenderer
     }
 
@@ -382,7 +390,7 @@ export class SketchBase {
     /** 添加性能监视器 */
     initStats() {
         const stats = new Stats();
-        document.body.appendChild(stats.dom);
+        targetElement.appendChild(stats.dom);
     }
 
     initGUI() {
@@ -422,6 +430,13 @@ export class SketchBase {
         }
         renderer.autoClear = true
 
+        if (this.css2dRenderer) {
+            this.css2dRenderer.render(this.#_scene, this.#_camera)
+        }
+
+        if (this.css3dRenderer) {
+            this.css3dRenderer.render(this.#_scene, this.#_camera)
+        }
     }
 
     setCustomRender = (customRender) => {

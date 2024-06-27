@@ -1,7 +1,7 @@
 import type * as THREE from 'three';
 import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType, TransformControls } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
-import type { OrbitControls } from 'three-stdlib';
+import type { CSS2DRenderer, CSS3DRenderer, OrbitControls } from 'three-stdlib';
 
 
 export declare class SketchBase {
@@ -52,13 +52,18 @@ export declare class SketchBase {
     /** 经过的时间，用于着色器 */
     uElapsedTime: { value: number; };
 
+    css2dRenderer: CSS2DRenderer;
+
+    css3dRenderer: CSS3DRenderer;
+
     /** 自定义渲染函数 */
     customRender: ( ( sketch: SketchBase ) => void ) | undefined;
 
     /**
+     * @param targetElement HTMLElement 容器
      * @param parameters WEBGL 渲染器参数
      */
-    constructor ( parameters?: THREE.WebGLRendererParameters );
+    constructor ( targetElement: HTMLElement, parameters?: THREE.WebGLRendererParameters );
 
     /** 添加功能模块 */
     addUpdatable ( updatable: Updatable ): void;
@@ -89,6 +94,10 @@ export declare class SketchBase {
 
     /** 初始化图形用户界面 */
     initGUI (): void;
+
+    initCSS2DRenderer (): void;
+
+    initCSS3DRenderer (): void;
 
     /** 初始化变换控制器 */
     initTransformControls (): void;
