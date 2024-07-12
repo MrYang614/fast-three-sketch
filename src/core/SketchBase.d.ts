@@ -1,5 +1,5 @@
 import type * as THREE from 'three';
-import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType, TransformControls } from './lib';
+import type { Updatable, RaycastCallbackType, RaycastEventType, RaycastObjectType, RaycastResultType, TransformControls, Raycaster } from './lib';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import type { CSS2DRenderer, CSS3DRenderer, OrbitControls } from 'three-stdlib';
 
@@ -24,11 +24,17 @@ export declare class SketchBase {
     /** 基础场景，引用始终保持不变 */
     baseScene: THREE.Scene;
 
+    /** 射线拾取器 */
+    raycaster: Raycaster;
+
     /** 缓存 */
     cache: boolean;
 
     /** 渲染Canvas */
     canvas: HTMLCanvasElement;
+
+    /** 渲染canvas所在容器 */
+    targetElement: HTMLElement;
 
     /** 控制器 */
     controls: OrbitControls;

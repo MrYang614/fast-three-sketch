@@ -29,6 +29,9 @@ export class Raycaster {
     /** 重新设置 */
     set ( camera: THREE.Camera, element: HTMLElement ): void;
 
+    /** 设置渲染视图的剪切 */
+    setScissor ( scissor: THREE.Vector4 ): void;
+
     /**
      * @param type 射线事件触发类型
      * @param object 射线检测对象，可以是数组

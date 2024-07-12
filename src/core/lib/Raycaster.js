@@ -82,6 +82,13 @@ export class Raycaster {
         this.element = element
     }
 
+    /**
+     * @param {THREE.Vector4} scissor 
+     */
+    setScissor(scissor) {
+        this.scissor = scissor
+    }
+
     raycast(type, object, callback) {
 
         if (!callback) return
@@ -214,8 +221,15 @@ export class Raycaster {
 
         const { left, top, width, height } = this.element.getBoundingClientRect()
 
-        mouse.x = ((event.clientX - left) / width) * 2 - 1
-        mouse.y = -((event.clientY - top) / height) * 2 + 1
+        const scissor = this.scissor
+
+        if (scissor) {
+            mouse.x = ((event.clientX - left - scissor.x) / (width - scissor.x)) * 2 - 1
+            mouse.y = -((event.clientY - top - (height - scissor.height - scissor.y)) / (scissor.height)) * 2 + 1
+        } else {
+            mouse.x = ((event.clientX - left) / width) * 2 - 1
+            mouse.y = -((event.clientY - top) / height) * 2 + 1
+        }
 
         this.intersections.length = 0
 

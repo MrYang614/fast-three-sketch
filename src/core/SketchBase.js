@@ -148,6 +148,8 @@ export class SketchBase {
             return
         }
 
+        this.targetElement = targetElement
+
         this.#_cameraMap = new Map();
         this.#_sceneMap = new Map();
 
